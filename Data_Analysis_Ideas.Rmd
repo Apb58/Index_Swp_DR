@@ -202,7 +202,7 @@ Ind_mat <- acast(mat, x~y, value.var = "z")
 
 #Plot the Indexes against each other, with the size of the points indicating the number of reads that index pair included.
 library(ggplot2)
-ggplot(Swapped_Ind, aes(Index1, Index2, size=Read_Count)) +geom_point() + theme(axis.text.x = element_text(angle = 90))+ labs(title = "Read Counts for unmatched Index Pairs")
+ggplot(Swapped_Ind, aes(Index1, Index2, size=Read_Count)) +geom_point() + theme(axis.text.x = element_text(angle = 90))+ labs(title = "Read Counts for Unmatched Index Pairs")
 
 print(Index_counts[25:576,])
 ```
