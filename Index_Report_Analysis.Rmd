@@ -1,0 +1,100 @@
+---
+title: "Index Swapping Report Analysis"
+author: "Alexa Dowdell"
+date: '`r date()`'
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r echo=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE)
+```
+
+``` {r, include = FALSE}
+ fig.dim <- 5
+ library(knitr)
+ opts_chunk$set(
+        fig.height=1.2*fig.dim,
+        fig.width=2*fig.dim,
+        fig.align='center'
+    )
+ 
+ #Color Format - `r colFmt("MY RED TEXT",'red')`
+colFmt = function(x,color){
+  outputFormat = opts_knit$get("rmarkdown.pandoc.to")
+  if(outputFormat == 'latex')
+    paste("\\textcolor{",color,"}{",x,"}",sep="")
+  else if(outputFormat == 'html')
+    paste("<font color='",color,"'>",x,"</font>",sep="")
+  else
+    x
+}
+``` 
+
+```{r}
+library(tidyverse)
+library(magrittr)
+library(pander)
+
+indexData2 <- read.table("IndexExcelR2.txt", head = TRUE, sep = "\t")
+headers <- c("Library", "PCRPrimer","Adapter", "Index", "Num_swapped", "Prop_Swapped", "Prop_KnownSwapped")
+colnames(indexData2) <- headers
+
+indexData2$logPrimer <- log10(indexData2$PCRPrimer)
+indexData2$logAdapter <- log10(indexData2$Adapter)
+indexData2$logPropK <- log10(indexData2$Prop_KnownSwapped)
+indexData2$logProp <- log10(indexData2$Prop_Swapped)
+
+
+summary(subset(indexData2,select=c(PCRPrimer, Adapter, Prop_KnownSwapped)))
+cor(subset(indexData2,select=c(PCRPrimer, Adapter, Prop_KnownSwapped)))
+#pdf("pairwisePlot.pdf")
+pairs(subset(indexData2,select=c(logProp, logPrimer, logAdapter, logPropK)))
+#dev.off()
+
+indexModel2 <- lm(logPropK~Adapter+logPrimer,data=indexData2) 
+
+
+summary(indexModel2)
+
+par(mfrow=c(1,1))
+
+library(car)
+vif(indexModel2)
+
+library(car)
+qqPlot(residuals(indexModel2)) # signs of systematic departure, but come back within the bounds
+
+plot(rstandard(indexModel2)~fitted.values(indexModel2))
+abline(h=0)
+
+par(mfrow=c(2,2))
+model1 <- lm(indexData2$Adapter~indexData2$PCRPrimer)
+plot(indexData2$Adapter~indexData2$PCRPrimer, xlab = "PCR Primer Conc.(ng/uL)", ylab = "Adapter Conc.(ng/uL)")
+abline(model1, col = "blue")
+
+model2 <- lm(indexData2$logPropK~indexData2$PCRPrimer)
+plot(indexData2$logPropK~indexData2$PCRPrimer, xlab = "PCR Primer Conc. (ng/uL)", ylab = "log10(Prop. Index Hopped)")
+abline(model2, col = "blue")
+
+model3 <- lm(indexData2$logPropK~indexData2$Adapter)
+plot(indexData2$logPropK~indexData2$Adapter, xlab = "Adapter Conc.(ng/uL)", ylab = "log10(Prop. Index Hopped)")
+abline(model3, col = "blue")
+
+index_propHist <- ggplot(indexData2, aes(x=indexData2$Index, y = Prop_KnownSwapped, fill = Prop_KnownSwapped)) +
+  geom_col() +
+  theme(axis.text.x  = element_text(angle=45, vjust=0.5, size=5)) +
+  scale_color_gradient() +
+  labs(x=expression("Index Sequence"), y=expression(bold("Proportion Swapped")), title = "Proportion of Swapped Indices Out of Total Known Reads")
+
+require(gridExtra)
+grid.arrange(index_propHist)
+
+```
+
+
+
+
