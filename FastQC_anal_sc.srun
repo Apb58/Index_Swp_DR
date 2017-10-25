@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --partition=long           ### Partition (like a queue in PBS)
+#SBATCH --job-name=FastQC          ### Job Name
+#SBATCH --output=QC.out            ### File in which to store job output
+#SBATCH --error=QC.err             ### File in which to store job error messages
+#SBATCH --time=0-10:00:00          ### Wall clock time limit in Days-HH:MM:SS
+#SBATCH --nodes=1                  ### Node count required for the job
+#SBATCH --ntasks-per-node=28       ### Number of tasks to be launched per Node
+#SBATCH --mail-user=abubie@uoregon.edu  ### Email to send notifications to
+#SBATCH --mail-type=ALL             ### Type of mail recieved (all start, end)
+
+ml fastqc/0.11.5
+
+cd /home/abubie/qual_ind_swp/pres
+
+time fastqc --noextract -o Known_QC_analysis /home/abubie/qual_ind_swp/pres/Known_index_pair_R1.fastq /home/abubie/qual_ind_swp/pres/Known_index_pair_R4.fastq
+time fastqc --noextract -o Unknown_QC_analysis /home/abubie/qual_ind_swp/pres/Unknown_index_pair_R1.fastq /home/abubie/qual_ind_swp/pres/Unknown_index_pair_R4.fastq
+
+echo "FastQC analysis complete"

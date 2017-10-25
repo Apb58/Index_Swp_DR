@@ -1,0 +1,20 @@
+#!/bin/bash
+#SBATCH --partition=short       ### Partition (like a queue in PBS)
+#SBATCH --job-name=IndSort      ### Job Name
+#SBATCH --output=Ind.out        ### File in which to store job output
+#SBATCH --error=Ind.err         ### File in which to store job error messages
+#SBATCH --time=0-20:00:00       ### Wall clock time limit in Days-HH:MM:SS
+#SBATCH --nodes=1               ### Node count required for the job
+#SBATCH --ntasks-per-node=28    ### Number of tasks to be launched per Node
+#SBATCH --mail-user=abubie@uoregon.edu  ### Email to send notifications to
+#SBATCH --mail-type=ALL             ### Type of mail recieved (all start, end)
+
+module load easybuild
+module load prl
+module load python/3.6.0
+
+cd /home/abubie/qual_ind_swp/pres
+
+./Index_Swp_sort.py -r1 /projects/bgmp/2017_sequencing/1294_S1_L008_R1_001.fastq.gz -r2 /projects/bgmp/2017_sequencing/1294_S1_L008_R4_001.fastq.gz -i1 /projects/bgmp/2017_sequencing/1294_S1_L008_R2_001.fastq.gz -i2 /projects/bgmp/2017_sequencing/1294_S1_L008_R3_001.fastq.gz -indf /home/abubie/qual_ind_swp/index.tsv -q_cut 0
+
+echo $"Index/Qual analysis is complete"

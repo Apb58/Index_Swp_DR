@@ -1,0 +1,12 @@
+PASS	Basic Statistics	Unknown_index_pair_R4.fastq
+PASS	Per base sequence quality	Unknown_index_pair_R4.fastq
+PASS	Per tile sequence quality	Unknown_index_pair_R4.fastq
+PASS	Per sequence quality scores	Unknown_index_pair_R4.fastq
+FAIL	Per base sequence content	Unknown_index_pair_R4.fastq
+WARN	Per sequence GC content	Unknown_index_pair_R4.fastq
+PASS	Per base N content	Unknown_index_pair_R4.fastq
+PASS	Sequence Length Distribution	Unknown_index_pair_R4.fastq
+WARN	Sequence Duplication Levels	Unknown_index_pair_R4.fastq
+WARN	Overrepresented sequences	Unknown_index_pair_R4.fastq
+PASS	Adapter Content	Unknown_index_pair_R4.fastq
+FAIL	Kmer Content	Unknown_index_pair_R4.fastq
