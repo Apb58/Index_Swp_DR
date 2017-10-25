@@ -11,5 +11,6 @@ Repository for Collaborating on Data and Results for Index swapping presentation
 3. FastQC_anal_sc.srun - BASH script used to run FastQC analysis on the sorted reads
 4. FastQC_Output - Folder contains the output files from FastQC analysis 
 5. Formatted_Sorted_Indexes - Table of all Index pairs, with number of reads per pair.
+6. demultiplexed_tile_counts.txt - Text file of read counts per tile (UNIX output)
 
-6. Data_Analysis_Ideas - R-markdown file establishing some ideas for results figures (Meant as scratch file)
+7. Data_Analysis_Ideas - R-markdown file establishing some ideas for results figures (Meant as scratch file)
