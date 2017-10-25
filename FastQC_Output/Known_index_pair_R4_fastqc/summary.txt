@@ -1,6 +1,6 @@
 PASS	Basic Statistics	Known_index_pair_R4.fastq
 PASS	Per base sequence quality	Known_index_pair_R4.fastq
-PASS	Per tile sequence quality	Known_index_pair_R4.fastq
+FAIL	Per tile sequence quality	Known_index_pair_R4.fastq
 PASS	Per sequence quality scores	Known_index_pair_R4.fastq
 WARN	Per base sequence content	Known_index_pair_R4.fastq
 PASS	Per sequence GC content	Known_index_pair_R4.fastq

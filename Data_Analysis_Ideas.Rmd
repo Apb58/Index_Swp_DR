@@ -213,7 +213,7 @@ print(Index_counts[25:576,])
 # Scratch work to determine statistics about read qualities:
 Known_R1_quals <- read.table('Use_this.txt', header = F, sep = '\t')
 Known_R4_quals <- read.table('Use_this_3.txt', header = F, sep = '\t')
-Unknown_R1_quals <- read.table('Use_this_2.txt', header = F, sep = '\t')
+Unknown_R1_quals <- read.table('Use_this_2.txt', header = F)
 Unknown_R4_quals <- read.table('Use_this_4.txt', header = F, sep = '\t')
 
 ave_R1 <- mean(Known_R1_quals$V1)
@@ -224,7 +224,7 @@ ave_R4 <- mean(Known_R4_quals$V1)
 sd_R4 <- sd(Known_R4_quals$V1)
 ave_u_R4 <- mean(Unknown_R4_quals$V1)
 
-for_test <- read.table('T-test.txt', header = F, sep = '\t')
+for_test <- read.table('R1_T-test.txt', header = F, sep = '\t')
 colnames(for_test) <- c("status", "mean")
 t.test(mean ~ status, data = for_test)
 ```
