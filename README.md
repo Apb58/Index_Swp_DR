@@ -4,6 +4,7 @@ Repository for Collaborating on Data and Results for Index swapping presentation
 ## File list:
 
 1. Index_Swp_sort.py - Python script that was used to generate Index hopped read counts, and used to sort reads before FastQC analysis
+    
     a. Output sorted read files can be found at: hpc:/home/abubie/qual_ind_swp/pres/
 
 2. Index_Sort_sc.srun - BASH script used to execute python script; includes passed arguements
