@@ -15,3 +15,4 @@ Repository for Collaborating on Data and Results for Index swapping presentation
 7. 20170802_fragment_analyzer_project_summary.pdf - Fragment analyzer traces from GC3F
 
 8. Data_Analysis_Ideas - R-markdown file establishing some ideas for results figures (Meant as scratch file)
+9. Index_Report_Analysis.Rmd - Analysis for Linear Regression of sorted indexes
